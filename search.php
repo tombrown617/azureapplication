@@ -18,7 +18,7 @@
 <body><h1>Search the database</h1>
 <!--<p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>-->
 <form method="post" action="search.php" enctype="multipart/form-data" >
-	  <input type="text" name="searchterm" id="searchterm"/></br>
+          <input type="text" name="searchterm" id="searchterm"/></br>
       Search by:  <select name="searchtype"><option value="name">Name</option><option value="email">Email</option><option value="companyname">Company Name</option></br>
       <input type="submit" name="submit" value="Search" />
 </form>
@@ -44,7 +44,7 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $date = date("Y-m-d");
-		$companyname = $_POST['companyname'];
+                $companyname = $_POST['companyname'];
         // Insert data
         $sql_search = "INSERT INTO registration_tbl (name, email, date, companyname) 
                    VALUES (?,?,?,?)";
@@ -52,7 +52,7 @@
         $stmt->bindValue(1, $name);
         $stmt->bindValue(2, $email);
         $stmt->bindValue(3, $date);
-		$stmt->bindValue(4, $companyname);
+                $stmt->bindValue(4, $companyname);
         $stmt->execute(); 
     }
     catch(Exception $e) {
@@ -62,41 +62,40 @@
     }**/
     // Retrieve data
     if(!empty($_POST)) {
-		try {
-			//Copy POST data to variables and perform relevant SQL SELECT
-			$searchtype = $_POST['searchtype'];
-        		$searchterm = $_POST['searchterm'];
-			$sql_select = "SELECT * FROM registration_tbl WHERE ? LIKE %?%";
-			$stmt = $conn->prepare($sql_select);
-			$stmt->bindValue(1, $searchtype);
-			$stmt->bindValue(2, $searchterm);		
-    			$stmt = $conn->query($sql_select);
-    			$results = $stmt->fetchAll(); 
-			if(count($results) > 0) {
-        			echo "<h2>Search Results:</h2>";
-        			echo "<table>";
-        			echo "<tr><th>Name</th>";
-        			echo "<th>Email</th>";
-				echo "<th>Company Name</th>";
-        			echo "<th>Date</th></tr>";
-        			foreach($results as $result) {
-            				echo "<tr><td>".$result['name']."</td>";
-            				echo "<td>".$result['email']."</td>";
-					echo "<td>".$result['companyname']."</td>";
-            				echo "<td>".$result['date']."</td></tr>";
-					echo "</table>";
-        			}
-			else {
-				echo "<h3>No matching registrants found.</h3>";
-			}
-
-			}
-    	}
-		catch(Exception $e) {
-        	die(var_dump($e));
-    	}
-	
-
+                try {
+                        //Copy POST data to variables and perform relevant SQL SELECT
+                        $searchtype = $_POST['searchtype'];
+                $searchterm = $_POST['searchterm'];
+                        $sql_select = "SELECT * FROM registration_tbl WHERE ? LIKE %?%";
+                        $stmt = $conn->prepare($sql_select);
+                        $stmt->bindValue(1, $searchtype);
+                        $stmt->bindValue(2, $searchterm);                
+                    $stmt = $conn->query($sql_select);
+                    $results = $stmt->fetchAll(); 
+                    if(count($registrants) > 0) {
+                        echo "<h2>Search Results:</h2>";
+                        echo "<table>";
+                        echo "<tr><th>Name</th>";
+                        echo "<th>Email</th>";
+                                echo "<th>Company Name</th>";
+                        echo "<th>Date</th></tr>";
+                        foreach($results as $result) {
+                            echo "<tr><td>".$result['name']."</td>";
+                            echo "<td>".$result['email']."</td>";
+                                        echo "<td>".$result['companyname']."</td>";
+                            echo "<td>".$result['date']."</td></tr>";
+                                        echo "</table>";
+                        }
+                        }
+                     else {
+			 echo "<h3>No matching registrants found.</h3>";
+    			}
+            }
+                catch(Exception $e) {
+                die(var_dump($e));
+            }
+        }
+         
 ?>
 </body>
 </html>
