@@ -67,10 +67,10 @@
                         $searchtype = $_POST['searchtype'];
                 	$searchterm = $_POST['searchterm'];
                 	//echo "<p>".$searchtype.":".$searchterm"</p>";
-                        $sql_select = "SELECT * FROM registration_tbl WHERE :searchtype LIKE :searchterm";
+                        $sql_select = "SELECT * FROM registration_tbl WHERE ".$searchtype." LIKE '%".$searchterm."%'";
                         $stmt = $conn->prepare($sql_select);
-                        $stmt->bindValue(':searchtype', $searchtype);
-                        $stmt->bindValue(':searchterm', "'%" . $searchterm . "%'");                
+                        //$stmt->bindValue(':searchtype', $searchtype);
+                        //$stmt->bindValue(':searchterm', "'%" . $searchterm . "%'");                
                     $stmt = $conn->query($sql_select);
                     $results = $stmt->fetchAll(); 
                     if(count($registrants) > 0) {
