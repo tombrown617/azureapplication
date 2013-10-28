@@ -71,7 +71,8 @@
                         $stmt = $conn->prepare($sql_select);
                         //$stmt->bindValue(':searchtype', $searchtype);
                         //$stmt->bindValue(':searchterm', "'%" . $searchterm . "%'");                
-                    $stmt = $conn->query($sql_select);
+                    $stmt->execute();
+                    
                     $results = $stmt->fetchAll(); 
                     if(count($registrants) > 0) {
                         echo "<h2>Search Results:</h2>";
