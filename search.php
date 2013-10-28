@@ -76,7 +76,6 @@
         			echo "<h2>Search Results:</h2>";
         			echo "<table>";
         			echo "<tr><th>Name</th>";
-        			
         			echo "<th>Email</th>";
 				echo "<th>Company Name</th>";
         			echo "<th>Date</th></tr>";
