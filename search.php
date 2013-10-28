@@ -66,7 +66,7 @@
                         //Copy POST data to variables and perform relevant SQL SELECT
                         $searchtype = $_POST['searchtype'];
                 	$searchterm = $_POST['searchterm'];
-                	echo "<p>".$searchtype.":".$searchterm"</p>";
+                	//echo "<p>".$searchtype.":".$searchterm"</p>";
                         $sql_select = "SELECT * FROM registration_tbl WHERE ? LIKE '%?%'";
                         $stmt = $conn->prepare($sql_select);
                         $stmt->bindValue(1, $searchtype);
