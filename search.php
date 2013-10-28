@@ -72,29 +72,32 @@
 			$stmt->bindValue(2, $searchterm);		
     		$stmt = $conn->query($sql_select);
     		$results = $stmt->fetchAll(); 
-    		if(count($registrants) > 0) {
-        		echo "<h2>Search Results:</h2>";
-        		echo "<table>";
-        		echo "<tr><th>Name</th>";
-        		echo "<th>Email</th>";
+    		
+			if(count($results) > 0) {
+        			echo "<h2>Search Results:</h2>";
+        			echo "<table>";
+        			echo "<tr><th>Name</th>";
+        			echo "<th>Email</th>";
 				echo "<th>Company Name</th>";
-        		echo "<th>Date</th></tr>";
-        		foreach($results as $result) {
-            		echo "<tr><td>".$result['name']."</td>";
-            		echo "<td>".$result['email']."</td>";
+        			echo "<th>Date</th></tr>";
+        			foreach($results as $result) {
+            				echo "<tr><td>".$result['name']."</td>";
+            				echo "<td>".$result['email']."</td>";
 					echo "<td>".$result['companyname']."</td>";
-            		echo "<td>".$result['date']."</td></tr>";
+            				echo "<td>".$result['date']."</td></tr>";
 					echo "</table>";
-        		}
+        			}
+			else {
+				echo "<h3>No matching registrants found.</h3>";
+			}
+
 			}
     	}
 		catch(Exception $e) {
         	die(var_dump($e));
     	}
 	}
-	 else {
-        echo "<h3>No matching registrants found.</h3>";
-    }
+
 ?>
 </body>
 </html>
