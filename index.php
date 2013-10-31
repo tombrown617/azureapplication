@@ -16,6 +16,7 @@
 </style>
 </head>
 <body>
+<h3 align="right"><a href="search.php">Search database</a></h3>
 <h1>Register here!</h1>
 <p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>
 <form method="post" action="index.php" enctype="multipart/form-data" >
@@ -46,7 +47,7 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $date = date("Y-m-d");
-		$companyname = $_POST['companyname'];
+                $companyname = $_POST['companyname'];
         // Insert data
         $sql_insert = "INSERT INTO registration_tbl (name, email, date, companyname) 
                    VALUES (?,?,?,?)";
@@ -54,7 +55,7 @@
         $stmt->bindValue(1, $name);
         $stmt->bindValue(2, $email);
         $stmt->bindValue(3, $date);
-		$stmt->bindValue(4, $companyname);
+                $stmt->bindValue(4, $companyname);
         $stmt->execute();
     }
     catch(Exception $e) {
@@ -71,12 +72,12 @@
         echo "<table>";
         echo "<tr><th>Name</th>";
         echo "<th>Email</th>";
-		echo "<th>Company Name</th>";
+        echo "<th>Company Name</th>";
         echo "<th>Date</th></tr>";
         foreach($registrants as $registrant) {
             echo "<tr><td>".$registrant['name']."</td>";
             echo "<td>".$registrant['email']."</td>";
-			echo "<td>".$registrant['companyname']."</td>";
+            echo "<td>".$registrant['companyname']."</td>";
             echo "<td>".$registrant['date']."</td></tr>";
         }
         echo "</table>";
