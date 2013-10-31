@@ -16,7 +16,6 @@
 </style>
 </head>
 <body><h1>Search the database</h1>
-<!--<p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>-->
 <form method="post" action="search.php" enctype="multipart/form-data" >
           <input type="text" name="searchterm" id="searchterm"/></br>
       Search by:  <select name="searchtype"><option value="name">Name</option><option value="email">Email</option><option value="companyname">Company Name</option></br>
@@ -38,64 +37,42 @@
     catch(Exception $e){
         die(var_dump($e));
     }
-    /** Insert registration info
-    if(!empty($_POST)) {
-    try {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $date = date("Y-m-d");
-                $companyname = $_POST['companyname'];
-        // Insert data
-        $sql_search = "INSERT INTO registration_tbl (name, email, date, companyname) 
-                   VALUES (?,?,?,?)";
-        $stmt = $conn->prepare($sql_search);
-        $stmt->bindValue(1, $name);
-        $stmt->bindValue(2, $email);
-        $stmt->bindValue(3, $date);
-                $stmt->bindValue(4, $companyname);
-        $stmt->execute(); 
-    }
-    catch(Exception $e) {
-        die(var_dump($e));
-    }
-    echo "<h3>You're registered!</h3>";
-    }**/
-    // Retrieve data
     if(!empty($_POST)) {
                 try {
                         //Copy POST data to variables and perform relevant SQL SELECT
                         $searchtype = $_POST['searchtype'];
-                	$searchterm = $_POST['searchterm'];
-                	//echo "<p>".$searchtype.":".$searchterm"</p>";
-                        $sql_select = "SELECT * FROM registration_tbl WHERE ".$searchtype." LIKE '%".$searchterm."%'";
-                        $stmt = $conn->prepare($sql_select);
-                        //$stmt->bindValue(':searchtype', $searchtype);
-                        //$stmt->bindValue(':searchterm', "'%" . $searchterm . "%'");                
-                    $stmt->execute();
-                    
-                    $results = $stmt->fetchAll(); 
-                    if(count($results) > 0) {
-                        echo "<h2>Search Results:</h2>";
-                        echo "<table>";
-                        echo "<tr><th>Name</th>";
-                        echo "<th>Email</th>";
-                                echo "<th>Company Name</th>";
-                        echo "<th>Date</th></tr>";
-                        foreach($results as $result) {
-                            echo "<tr><td>".$result['name']."</td>";
-                            echo "<td>".$result['email']."</td>";
-                                        echo "<td>".$result['companyname']."</td>";
-                            echo "<td>".$result['date']."</td></tr>";
-                                        echo "</table>";
-                        }
-                        }
-                     else {
-			 echo "<h3>No matching registrants found.</h3>";
-    			}
-            }
+				if($searchtype != "name" && $searchtype != "email" && $searchtype != "companyname")	{
+					echo "Invalid search type, please try again";
+				}
+				else {
+                        		$searchterm = $_POST['searchterm'];
+                        		$sql_select = "SELECT * FROM registration_tbl WHERE ".$searchtype." LIKE '%".$searchterm."%'";
+                        		$stmt = $conn->prepare($sql_select);               
+                    			$stmt->execute();
+                    			$results = $stmt->fetchAll(); 
+                    			if(count($results) > 0) {
+                        			echo "<h2>Search Results:</h2>";
+                        			echo "<table>";
+                        			echo "<tr><th>Name</th>";
+                        			echo "<th>Email</th>";
+                            			echo "<th>Company Name</th>";
+                        			echo "<th>Date</th></tr>";
+                        			foreach($results as $result) {
+                            				echo "<tr><td>".$result['name']."</td>";
+                            				echo "<td>".$result['email']."</td>";
+                                			echo "<td>".$result['companyname']."</td>";
+                            				echo "<td>".$result['date']."</td></tr>";
+                                			echo "</table>";
+                        			}
+                        		}
+                     			else {
+                         			echo "<h3>No matching registrants found.</h3>";
+                     			}
+				}
+            	}
                 catch(Exception $e) {
                 die(var_dump($e));
-            }
+            	}
         }
          
 ?>
