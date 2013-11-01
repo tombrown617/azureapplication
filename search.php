@@ -41,7 +41,7 @@
     if(!empty($_POST)) {
                 try {
                         //Copy POST data to variables and perform relevant SQL SELECT
-                        $searchtype = $_POST['searchtype'];
+                                $searchtype = $_POST['searchtype'];
                                              
                                 
                                 $searchterm = $_POST['searchterm'];
@@ -65,11 +65,11 @@
                                         
                                         }
                                         echo "</table>";
-                                
+                                    }
                                      else {
                                          echo "<h3>No matching registrants found.</h3>";
                                      }
-                                                }
+                                                
                     }
                 catch(Exception $e) {
                 die(var_dump($e));
