@@ -64,8 +64,9 @@
                                             echo "<td>".$result['email']."</td>";
                                         echo "<td>".$result['companyname']."</td>";
                                             echo "<td>".$result['date']."</td></tr>";
-                                        echo "</table>";
+                                        
                                         }
+                                        echo "</table>";
                                 }
                                      else {
                                          echo "<h3>No matching registrants found.</h3>";
