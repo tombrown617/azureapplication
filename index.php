@@ -17,7 +17,7 @@
 </head>
 <body>
 <h3 align="right"><a href="search.php">Search database</a></h3>
-<h1>Register here!</h1>
+<h3>Register here!</h3>
 <p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>
 <form method="post" action="index.php" enctype="multipart/form-data" >
       Name  <input type="text" name="name" id="name"/></br>
