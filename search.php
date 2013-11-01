@@ -48,8 +48,11 @@
 						}
 						else {
                         	$searchterm = $_POST['searchterm'];
-                        	$sql_select = "SELECT * FROM registration_tbl WHERE ".$searchtype." LIKE '%".$searchterm."%'";
-                        	$stmt = $conn->prepare($sql_select);               
+                        	$sql_select = "SELECT * FROM registration_tbl WHERE :searchtype LIKE :searchterm";
+                               
+                        	$stmt = $conn->prepare($sql_select);
+                                $stmt->bindValue(':searchtype', $searchtype);
+                                $stmt->bindValue(':searchterm', '%' . $searchterm . '%');
                     		$stmt->execute();
                     		$results = $stmt->fetchAll(); 
                     		if(count($results) > 0) {
