@@ -43,7 +43,7 @@
                         //Copy POST data to variables and perform relevant SQL SELECT
                         $searchtype = $_POST['searchtype'];
                                              
-                                                else {
+                                
                                 $searchterm = $_POST['searchterm'];
                                     $sql_select = "SELECT * FROM registration_tbl WHERE name LIKE :input OR email LIKE :input OR companyName LIKE :input ";
                                 $stmt = $conn->prepare($sql_select);
