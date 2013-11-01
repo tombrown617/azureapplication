@@ -18,10 +18,9 @@
 <body>
 <h3 align="right"><a href="index.php">Registration page</a></h3>
 <h1>Search the database</h1>
-<form method="post" action="search.php" enctype="multipart/form-data" >
-          <input type="text" name="searchterm" id="searchterm"/></br>
-      Search by:  <select name="searchtype"><option value="name">Name</option><option value="email">Email</option><option value="companyname">Company Name</option></br>
-      <input type="submit" name="submit" value="Search" />
+<form method="post" action="search.php" >
+      <input type="text" name="searchterm" id="searchterm" />
+      <input type="submit" name="search" value="Search" />
 </form>
 <?php
     // DB connection info
@@ -43,15 +42,14 @@
                 try {
                         //Copy POST data to variables and perform relevant SQL SELECT
                         $searchtype = $_POST['searchtype'];
-                                                if($searchtype != "name" && $searchtype != "email" && $searchtype != "companyname")        {
-                                                        echo "Invalid search type, please try again";
-                                                }
+                                             
                                                 else {
                                 $searchterm = $_POST['searchterm'];
-                                $sql_select = "SELECT * FROM registration_tbl WHERE ".$searchtype." LIKE '%".$searchterm."%'";
-                                $stmt = $conn->prepare($sql_select);               
-                                    $stmt->execute();
-                                    $results = $stmt->fetchAll(); 
+                                    $sql_select = "SELECT * FROM registration_tbl WHERE name LIKE :input OR email LIKE :input OR companyName LIKE :input ";
+                                $stmt = $conn->prepare($sql_select);
+                                $stmt->bindValue(':input', '%' . $searchterm . '%');
+                                $stmt->execute();
+                                $results = $stmt->fetchAll(); 
                                     if(count($results) > 0) {
                                         echo "<h2>Search Results:</h2>";
                                         echo "<table>";
@@ -67,7 +65,7 @@
                                         
                                         }
                                         echo "</table>";
-                                }
+                                
                                      else {
                                          echo "<h3>No matching registrants found.</h3>";
                                      }
